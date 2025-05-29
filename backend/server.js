@@ -1,31 +1,48 @@
+// Import Express framework
 import express from 'express';
+// Import Mongoose for MongoDB object modeling
 import mongoose from 'mongoose';
-import cors from 'cors';
-import Job from './models/Job.js'; //Importazione del modello Job
 
-const app = express(); //Creazione di un'applicazione Express
+// Import routers
+import jobPostingsRouter from './routes/jobPostings.js'; // Import job postings router
+import applicationsRouter from './routes/applications.js'; // Import applications router
 
+// Initialize the Express application
+const app = express();
+// Define the port the server will listen on
+const PORT = process.env.PORT || 5000;
 
-app.use(cors()); //Abilitazione del CORS per consentire richieste da altri domini  
+// Middleware to parse JSON bodies
+// This must be placed before the route handlers
+app.use(express.json());
 
+// Use the imported routers
+app.use('/api/jobs', jobPostingsRouter); // Use job postings router for paths starting with /api/jobs
+app.use('/api/applications', applicationsRouter); // Use applications router for paths starting with /api/applications
 
-//app.use(express.json());
-//app.use('/api/jobs', jobRoutes);
+// Define the MongoDB connection string
+const MONGO_URI = 'mongodb://localhost:27017/job_app_db';
 
+// Connect to MongoDB
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    // Log success message on successful connection
+    console.log('MongoDB connected successfully');
+    // Start the server only after successful MongoDB connection
+    app.listen(PORT, () => {
+      // Log the port the server is running on
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    // Log error message if MongoDB connection fails
+    console.error('MongoDB connection error:', err);
+    // Exit the process with failure code
+    process.exit(1);
+  });
 
-mongoose.connect("mongodb://localhost:27017/Job", { useNewUrlParser: true}); //Connessione al database MongoDB
-
-
-const db = mongoose.connection; //Restituzione della connessione al database(proprietà per gestire gli eventi di connessione)
-
-
-db.once('open', () => {
-    console.log("Connesso al database MongoDB con successo usando Mongoose!"); //Messaggio di conferma della connessione al database
-}); 
-db.on('error', (error) => {
-    console.error('Errore di connessione MongoDB:', error);
+// Define a simple GET route for the root URL (optional: can be a health check or API welcome)
+app.get('/', (req, res) => {
+  // Send a "Hello World" or API status message
+  res.send('Job Application Platform API is running.');
 });
-
-
-
-app.listen(3000) //Avvio del server sulla porta 3000
