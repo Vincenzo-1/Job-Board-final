@@ -1,0 +1,173 @@
+/* General body styling */
+body {
+  margin: 0; /* Remove default margin */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; /* Standard system fonts */
+  -webkit-font-smoothing: antialiased; /* Improve font rendering on WebKit */
+  -moz-osx-font-smoothing: grayscale; /* Improve font rendering on Firefox */
+  background-color: #f4f7f6; /* Light gray background */
+  color: #333; /* Default text color */
+}
+
+/* Main App container styling */
+.App {
+  text-align: center; /* Center align text within the App container */
+}
+
+/* App header styling */
+.App-header {
+  background-color: #282c34; /* Dark background for header */
+  padding: 20px; /* Padding around header content */
+  color: white; /* White text color for header */
+  margin-bottom: 20px; /* Space below the header */
+}
+
+/* Navigation buttons styling */
+.App-header nav button {
+  background-color: #61dafb; /* React blue for buttons */
+  color: #282c34; /* Dark text for buttons */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Padding inside buttons */
+  margin: 0 10px; /* Margin around buttons */
+  font-size: 1em; /* Font size for buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Navigation buttons hover and disabled states */
+.App-header nav button:hover:not([disabled]) {
+  background-color: #21a1f1; /* Darker blue on hover */
+}
+
+.App-header nav button:disabled {
+  background-color: #ccc; /* Gray background for disabled buttons */
+  color: #666; /* Darker text for disabled buttons */
+  cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+}
+
+/* Main content area styling */
+main {
+  padding: 20px; /* Padding around main content */
+}
+
+/* Styling for components (CompanyView, WorkerView) */
+/* Common container for views */
+div > h2 { /* Target h2 directly inside a div (like in CompanyView/WorkerView) */
+  color: #282c34; /* Dark color for view titles */
+  margin-bottom: 20px; /* Space below titles */
+}
+
+/* Form styling */
+form {
+  background-color: #fff; /* White background for forms */
+  padding: 20px; /* Padding inside forms */
+  border-radius: 8px; /* Rounded corners for forms */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for forms */
+  max-width: 500px; /* Max width for forms */
+  margin: 20px auto; /* Center forms on the page */
+  text-align: left; /* Align text to the left within forms */
+}
+
+/* Form input and textarea styling */
+form div {
+  margin-bottom: 15px; /* Space between form fields */
+}
+
+form label {
+  display: block; /* Make labels block elements */
+  margin-bottom: 5px; /* Space below labels */
+  font-weight: bold; /* Bold font for labels */
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  width: calc(100% - 22px); /* Full width minus padding and border */
+  padding: 10px; /* Padding inside input fields */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 4px; /* Rounded corners for input fields */
+  font-size: 1em; /* Font size for input fields */
+}
+
+form textarea {
+  min-height: 100px; /* Minimum height for textareas */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* Form button styling */
+form button[type="submit"] {
+  background-color: #5cb85c; /* Green for submit buttons */
+  color: white; /* White text for submit buttons */
+  padding: 10px 15px; /* Padding inside submit buttons */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners for submit buttons */
+  font-size: 1em; /* Font size for submit buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+form button[type="submit"]:hover {
+  background-color: #4cae4c; /* Darker green on hover */
+}
+
+form button[type="submit"]:disabled {
+  background-color: #ccc; /* Gray background for disabled submit buttons */
+  cursor: not-allowed; /* Not-allowed cursor for disabled submit buttons */
+}
+
+/* Styling for job lists in WorkerView */
+ul {
+  list-style-type: none; /* Remove default list bullets */
+  padding: 0; /* Remove default padding */
+}
+
+li { /* Styling for individual list items (jobs, applications) */
+  background-color: #fff; /* White background for list items */
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 15px; /* Padding inside list items */
+  margin-bottom: 10px; /* Space between list items */
+  border-radius: 4px; /* Rounded corners for list items */
+  text-align: left; /* Align text to the left */
+}
+
+li h3 { /* Job title in list items */
+  margin-top: 0; /* Remove top margin for h3 */
+  color: #337ab7; /* Blue color for job titles */
+}
+
+li button { /* General button styling within list items */
+  background-color: #61dafb; /* React blue */
+  color: #282c34;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 10px; /* Space between buttons */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+li button:hover {
+  background-color: #21a1f1;
+}
+
+li button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Feedback messages styling */
+p { /* General paragraph styling, used for feedback messages */
+  margin-top: 10px; /* Space above feedback messages */
+  font-weight: bold; /* Bold font for feedback messages */
+}
+
+/* Footer styling */
+footer {
+  margin-top: 40px; /* Space above footer */
+  padding: 20px; /* Padding inside footer */
+  background-color: #282c34; /* Dark background for footer */
+  color: white; /* White text for footer */
+  font-size: 0.9em; /* Slightly smaller font for footer */
+}
