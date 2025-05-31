@@ -63,6 +63,35 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Error fetching job posting', error: error.message });
   }
 });
-
+//REMOVE /api/jobs/:id - Delete a job posting by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    // Find and delete the job posting by its ID
+    const deletedJobPosting = await JobPosting.findByIdAndDelete(req.params.id);
+    // If the job posting is not found
+    if (!deletedJobPosting) {
+      // Respond with status 404 (Not Found) and an error message
+      return res.status(404).json({ message: 'Job posting not found' });
+    }
+    // Respond with a success message
+    res.json({ message: 'Job posting deleted successfully' });
+  } catch (error) {
+    // If an error occurs, respond with status 500 (Internal Server Error)
+    // and a JSON object containing the error message
+    res.status(500).json({ message: 'Error deleting job posting', error: error.message });
+  }
+});
+router.delete('/', async (req, res) => {
+  try {
+    // Delete all job postings
+    await JobPosting.deleteMany({});
+    // Respond with a success message
+    res.json({ message: 'All job postings deleted successfully' });
+  } catch (error) {
+    // If an error occurs, respond with status 500 (Internal Server Error)
+    // and a JSON object containing the error message
+    res.status(500).json({ message: 'Error deleting job postings', error: error.message });
+  }
+});
 // Export the router to be used in other parts of the application
 export default router;
