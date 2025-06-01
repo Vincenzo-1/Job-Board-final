@@ -16,6 +16,12 @@ const API_BASE_URL = '/api'; // Adjust if your backend is on a different port/do
  * @param {string} jobData.description - The description of the job.
  * @param {string} jobData.location - The location of the job.
  * @returns {Promise<object>} The created job posting object.
+ * @property {string} _id - The unique identifier of the job posting.
+ * @property {string} title - The title of the job.
+ * @property {string} company - The company offering the job.
+ * @property {string} description - The description of the job.
+ * @property {string} location - The location of the job.
+ * @property {string} postedAt - The ISO date string of when the job was posted.
  */
 export const publishJob = async (jobData) => {
   try {
@@ -33,7 +39,13 @@ export const publishJob = async (jobData) => {
 
 /**
  * Fetches all job postings.
- * @returns {Promise<Array<object>>} A list of job posting objects.
+ * @returns {Promise<Array<object>>} A list of job posting objects. Each object represents a job posting.
+ * @property {string} _id - The unique identifier of the job posting.
+ * @property {string} title - The title of the job.
+ * @property {string} company - The company offering the job.
+ * @property {string} description - The description of the job.
+ * @property {string} location - The location of the job.
+ * @property {string} postedAt - The ISO date string of when the job was posted.
  */
 export const getJobs = async () => {
   try {
@@ -53,6 +65,12 @@ export const getJobs = async () => {
  * Fetches a single job posting by its ID.
  * @param {string} id - The ID of the job posting to fetch.
  * @returns {Promise<object>} The job posting object.
+ * @property {string} _id - The unique identifier of the job posting.
+ * @property {string} title - The title of the job.
+ * @property {string} company - The company offering the job.
+ * @property {string} description - The description of the job.
+ * @property {string} location - The location of the job.
+ * @property {string} postedAt - The ISO date string of when the job was posted.
  */
 export const getJobById = async (id) => {
   try {
@@ -76,6 +94,11 @@ export const getJobById = async (id) => {
  * @param {string} applicationData.jobPostingId - The ID of the job posting to apply for.
  * @param {string} applicationData.workerEmail - The email of the worker applying.
  * @returns {Promise<object>} The created application object.
+ * @property {string} _id - The unique identifier of the application.
+ * @property {string} jobPostingId - The ID of the job posting applied for.
+ * @property {string} workerEmail - The email of the worker who applied.
+ * @property {string} applicationDate - The ISO date string of when the application was made.
+ * @property {string} status - The status of the application (e.g., "Pending", "Reviewed").
  */
 export const applyForJob = async (applicationData) => {
   try {
@@ -94,7 +117,16 @@ export const applyForJob = async (applicationData) => {
 /**
  * Fetches all applications for a specific worker.
  * @param {string} email - The email of the worker whose applications to fetch.
- * @returns {Promise<Array<object>>} A list of application objects.
+ * @returns {Promise<Array<object>>} A list of application objects. Each object represents an application.
+ * The `jobPosting` field within each application object may be populated with details from the JobPosting model.
+ * @property {string} _id - The unique identifier of the application.
+ * @property {object|string} jobPosting - The job posting applied for. Can be a populated object or just an ID.
+ * @property {string} jobPosting._id - (if populated) Job posting ID.
+ * @property {string} jobPosting.title - (if populated) Job posting title.
+ * @property {string} jobPosting.company - (if populated) Job posting company.
+ * @property {string} workerEmail - The email of the worker who applied.
+ * @property {string} applicationDate - The ISO date string of when the application was made.
+ * @property {string} status - The status of the application.
  */
 export const getWorkerApplications = async (email) => {
   try {
