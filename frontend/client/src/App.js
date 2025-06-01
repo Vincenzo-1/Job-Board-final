@@ -1,8 +1,8 @@
 // Import React and useState hook
 import React, { useState } from 'react';
 // Import custom components
-import CompanyView from './components/CompanyView';
-import WorkerView from './components/WorkerView';
+import CompanyView from './views/CompanyView';
+import WorkerView from './views/WorkerView';
 // Import basic styling
 import './App.css';
 

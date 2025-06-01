@@ -1,7 +1,7 @@
 // Import React
 import React from 'react';
 // Import the custom hook
-import useCompanyForm from '../hooks/useCompanyForm';
+import useCompanyForm from '../controllers/useCompanyFormController';
 
 // Define the CompanyView functional component
 const CompanyView = () => {

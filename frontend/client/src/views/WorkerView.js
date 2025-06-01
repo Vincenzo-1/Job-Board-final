@@ -1,7 +1,7 @@
 // Import React
 import React from 'react';
 // Import the custom hook
-import useWorkerData from '../hooks/useWorkerData';
+import useWorkerData from '../controllers/useWorkerDataController';
 
 // Define the WorkerView functional component
 const WorkerView = () => {
@@ -29,7 +29,7 @@ const WorkerView = () => {
       {isLoading && <p>Loading jobs...</p>}
       {/* Display feedback message if it exists */}
       {feedbackMessage && <p style={{ color: feedbackMessage.startsWith('Failed') ? 'red' : 'green' }}>{feedbackMessage}</p>}
-      
+
       {/* List of job postings */}
       {!isLoading && jobs.length === 0 && !feedbackMessage.startsWith('Failed') && <p>No job postings available at the moment.</p>}
       <ul>
