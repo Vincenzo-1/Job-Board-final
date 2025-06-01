@@ -1,52 +1,18 @@
-// Import React and useState hook
-import React, { useState } from 'react';
-// Import the publishJob API service function
-import { publishJob } from '../services/api';
+// Import React
+import React from 'react';
+// Import the custom hook
+import useCompanyForm from '../hooks/useCompanyForm';
 
 // Define the CompanyView functional component
 const CompanyView = () => {
-  // State for form data: title, company, description, location
-  const [formData, setFormData] = useState({
-    title: '',
-    company: '',
-    description: '',
-    location: ''
-  });
-  // State for loading status during API call
-  const [isLoading, setIsLoading] = useState(false);
-  // State for feedback message to the user
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-
-  // Handle input changes in the form
-  const handleChange = (e) => {
-    // Update formData state with the new value from the input field
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    setIsLoading(true); // Set loading to true
-    setFeedbackMessage(''); // Clear previous feedback message
-
-    try {
-      // Call the publishJob API service function with form data
-      const result = await publishJob(formData);
-      // Set success feedback message
-      setFeedbackMessage(`Job published successfully! ID: ${result._id}`);
-      // Reset form data
-      setFormData({ title: '', company: '', description: '', location: '' });
-      // Log success to console (optional)
-      console.log('Job published:', result);
-    } catch (error) {
-      // Set error feedback message
-      setFeedbackMessage('Failed to publish job. Please try again.');
-      // Log error to console (optional)
-      console.error('Publish job error:', error);
-    } finally {
-      setIsLoading(false); // Set loading to false
-    }
-  };
+  // Use the custom hook to get state and handlers
+  const {
+    formData,
+    isLoading,
+    feedbackMessage,
+    handleChange,
+    handleSubmit
+  } = useCompanyForm();
 
   // JSX for the component's UI
   return (

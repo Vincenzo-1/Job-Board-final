@@ -1,119 +1,25 @@
-// Import React, useState, and useEffect hooks
-import React, { useState, useEffect } from 'react';
-// Import API service functions
-import { getJobs, getJobById, applyForJob, getWorkerApplications } from '../services/api';
+// Import React
+import React from 'react';
+// Import the custom hook
+import useWorkerData from '../hooks/useWorkerData';
 
 // Define the WorkerView functional component
 const WorkerView = () => {
-  // State for the list of job postings
-  const [jobs, setJobs] = useState([]);
-  // State for the currently selected job details (if any)
-  const [selectedJobDetails, setSelectedJobDetails] = useState(null);
-  // State for loading status during API calls
-  const [isLoading, setIsLoading] = useState(false);
-  // State for feedback messages
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-  // State for worker's email to view their applications
-  const [workerEmailForSearch, setWorkerEmailForSearch] = useState('');
-  // State for the list of applications for the searched worker
-  const [workerApplications, setWorkerApplications] = useState([]);
-  // State for loading status for fetching worker applications
-  const [isFetchingWorkerApps, setIsFetchingWorkerApps] = useState(false);
-
-
-  // useEffect hook to fetch jobs when the component mounts
-  useEffect(() => {
-    // Define an async function to fetch jobs
-    const fetchJobs = async () => {
-      setIsLoading(true); // Set loading to true
-      try {
-        // Call the getJobs API service function
-        const fetchedJobs = await getJobs();
-        setJobs(fetchedJobs); // Update jobs state
-      } catch (error) {
-        // Set error feedback message
-        setFeedbackMessage('Failed to fetch jobs.');
-        console.error('Fetch jobs error:', error); // Log error
-      } finally {
-        setIsLoading(false); // Set loading to false
-      }
-    };
-    fetchJobs(); // Call the function
-  }, []); // Empty dependency array means this runs once on mount
-
-  // Handle viewing details of a specific job
-  const handleViewDetails = async (jobId) => {
-    setIsLoading(true); // Set loading to true
-    setFeedbackMessage(''); // Clear feedback
-    try {
-      // Call the getJobById API service function
-      const details = await getJobById(jobId);
-      setSelectedJobDetails(details); // Update selected job details state
-    } catch (error) {
-      // Set error feedback message
-      setFeedbackMessage(`Failed to fetch job details for ID: ${jobId}.`);
-      console.error('Fetch job details error:', error); // Log error
-      setSelectedJobDetails(null); // Clear details on error
-    } finally {
-      setIsLoading(false); // Set loading to false
-    }
-  };
-
-  // Handle applying for a job
-  const handleApply = async (jobId) => {
-    setFeedbackMessage(''); // Clear feedback
-    // Prompt for worker's email
-    const workerEmail = window.prompt('Please enter your email to apply:');
-    if (!workerEmail) { // If no email is entered or prompt is cancelled
-      setFeedbackMessage('Application cancelled: Email is required.');
-      return;
-    }
-
-    setIsLoading(true); // Set loading to true
-    try {
-      // Call the applyForJob API service function
-      const applicationResult = await applyForJob({ jobPostingId: jobId, workerEmail });
-      // Set success feedback message
-      setFeedbackMessage(`Successfully applied for job! Application ID: ${applicationResult._id}`);
-      console.log('Application successful:', applicationResult); // Log success
-    } catch (error) {
-      // Set error feedback message
-      setFeedbackMessage('Failed to apply for job.');
-      console.error('Apply for job error:', error); // Log error
-    } finally {
-      setIsLoading(false); // Set loading to false
-    }
-  };
-  
-  // Handle input change for worker email search
-  const handleWorkerEmailSearchChange = (e) => {
-    setWorkerEmailForSearch(e.target.value);
-  };
-
-  // Handle fetching applications for a worker
-  const handleFetchWorkerApplications = async (e) => {
-    e.preventDefault(); // Prevent form submission if this is part of a form
-    if (!workerEmailForSearch) {
-      setFeedbackMessage('Please enter an email to search for applications.');
-      return;
-    }
-    setIsFetchingWorkerApps(true);
-    setFeedbackMessage('');
-    setWorkerApplications([]); // Clear previous results
-    try {
-      const apps = await getWorkerApplications(workerEmailForSearch);
-      setWorkerApplications(apps);
-      if (apps.length === 0) {
-        setFeedbackMessage(`No applications found for ${workerEmailForSearch}.`);
-      }
-    } catch (error) {
-      setFeedbackMessage(`Failed to fetch applications for ${workerEmailForSearch}.`);
-      console.error('Fetch worker applications error:', error);
-    } finally {
-      setIsFetchingWorkerApps(false);
-    }
-  };
-
+  // Use the custom hook to get state and handlers
+  const {
+    jobs,
+    selectedJobDetails,
+    isLoading,
+    feedbackMessage,
+    workerEmailForSearch,
+    workerApplications,
+    isFetchingWorkerApps,
+    handleViewDetails,
+    handleApply,
+    handleWorkerEmailSearchChange,
+    handleFetchWorkerApplications,
+    setSelectedJobDetails // For closing the details view
+  } = useWorkerData();
 
   // JSX for the component's UI
   return (
